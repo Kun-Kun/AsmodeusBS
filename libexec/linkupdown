@@ -669,6 +669,7 @@ sub mikrotik {
 
   if ( $ACTION eq 'up' ){
     push @commands, qq{/ip firewall address-list add list=CLIENTS_$tp_id  address=$attr->{CLIENT_IP} };
+    push @commands, qq{/ip firewall address-list add list=CLIENTS_ALLOW  address=$attr->{CLIENT_IP} };
   }
 
   my $result = ssh_cmd( \@commands, { %{$attr}, BASE_DIR => $base_dir } );
