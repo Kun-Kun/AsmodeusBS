@@ -1222,7 +1222,7 @@ sub user_form {
           $user_info->{SHOW_DEPOSIT} = sprintf("%.2f", $user_info->{DEPOSIT}) if ($user_info->{DEPOSIT} =~ /\d+/);
         }
 
-        $user_info->{DEPOSIT_MARK} = ($user_info->{DEPOSIT} =~ /\d+/ && $user_info->{DEPOSIT} > 0) ? 'label-primary' : 'bg-warning';
+        $user_info->{DEPOSIT_MARK} = ($user_info->{DEPOSIT} =~ /\d+/ && $user_info->{DEPOSIT} >= 0) ? 'label-primary' : 'bg-warning';
       }
       else {
         $user_info->{DEPOSIT_MARK} = 'label-warning';
