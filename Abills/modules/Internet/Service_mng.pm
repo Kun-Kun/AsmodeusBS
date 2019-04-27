@@ -130,7 +130,7 @@ sub service_warning {
   elsif (
     (!$Service->{STATUS} || $Service->{STATUS} == 10)
       && !$user->{DISABLE}
-      && ( $user->{DEPOSIT} + (($user->{CREDIT} && $user->{CREDIT} > 0) ? $user->{CREDIT} : ($Service->{TP_CREDIT} || 0)) > 0
+      && ( $user->{DEPOSIT} + (($user->{CREDIT} && $user->{CREDIT} > 0) ? $user->{CREDIT} : ($Service->{TP_CREDIT} || 0)) >= 0
       || ($Service->{POSTPAID_ABON} || 0)
       || ($Service->{PAYMENT_TYPE} && $Service->{PAYMENT_TYPE} == 1) )
   ){
@@ -216,7 +216,7 @@ sub service_warning {
         }
 
         $days_to_fee = date_diff($DATE, $self->{ABON_DATE});
-        if ($days_to_fee > 0) {
+        if ($days_to_fee >= 0) {
           $warning = $lang{NEXT_FEES_THROUGHT};
           $warning =~ s/\%DAYS\%/$days_to_fee/g;
         }
