@@ -450,10 +450,10 @@ sub ipoe_start_active{
       print "$login $ip Online\n" if ($debug > 3);
       next;
     }
-#    elsif ( !$deposit ){
-#      print "Error: Can't finde bills  UID: '$uid'\n";
-#      next;
- #   }
+    elsif ( !defined $deposit ){
+      print "Error: Can't finde bills  UID: '$uid'\n";
+      next;
+    }
     elsif ( ! $tp_id ){
       print "Error: TP_NOT_DEFINED TP_ID: $tp_id UID: '$uid'\n";
       next;

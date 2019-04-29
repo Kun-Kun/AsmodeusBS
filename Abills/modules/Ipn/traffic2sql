@@ -144,8 +144,8 @@ if ( ! $NAS_IDS  ){
 
 $log_file = $argv->{log} if ($argv->{log});
 
-my $FLOW_CAT = $argv->{FLOW_CAT} || '/usr/local/bin/flow-cat';
-my $FLOW_PRINT = $argv->{FLOW_PRINT} || '/usr/local/bin/flow-print';
+my $FLOW_CAT = $argv->{FLOW_CAT} || '/usr/bin/flow-cat';
+my $FLOW_PRINT = $argv->{FLOW_PRINT} || '/usr/bin/flow-print';
 
 $Ipn->{debug} = 1 if ($debug > 3);
 $conf{MB_SIZE} = $conf{KBYTE_SIZE} * $conf{KBYTE_SIZE};

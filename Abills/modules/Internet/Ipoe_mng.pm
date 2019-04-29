@@ -174,7 +174,6 @@ sub internet_ipoe_activate{
           REMOTE_ADDR => $ip,
         }
       );
-
       if ( $Internet_ipoe->{TOTAL} < 1 ){
         $Nas->info( { NAS_ID => $nas_id } );
 
@@ -483,27 +482,27 @@ sub internet_ipoe_change_status{
   my $cmd;
 
   #Enable IPN Session
-  if ( $STATUS eq 'ONLINE_ENABLE' ){
-    $cmd = $conf{INTERNET_IPOE_START};
-    $html->message( 'info', $lang{INFO}, "$lang{ENABLE} IP: $ip" ) if (!$attr->{QUICK});
-    $Sessions->online_update(
-      {
-        USER_NAME       => $USER_NAME,
-        ACCT_SESSION_ID => $ACCT_SESSION_ID,
-        STATUS          => 10
-      }
-    );
+  if ( $STATUS eq 'ONLINE_ENABLE'){
+  #  $cmd = $conf{INTERNET_IPOE_START};
+  #  $html->message( 'info', $lang{INFO}, "$lang{ENABLE} IP: $ip" ) if (!$attr->{QUICK});
+  #  $Sessions->online_update(
+  #    {
+  #      USER_NAME       => $USER_NAME,
+  #      ACCT_SESSION_ID => $ACCT_SESSION_ID,
+  #      STATUS          => 10
+  #    }
+  #  );
 
-    $Log->log_add(
-      {
-        LOG_TYPE  => $Log::log_levels{'LOG_INFO'},
-        ACTION    => 'AUTH',
-        USER_NAME => $USER_NAME || '-',
-        MESSAGE   => "IP: $ip",
-        NAS_ID    => $attr->{NAS_ID}
-      }
-    );
-
+  #  $Log->log_add(
+  #    {
+  #      LOG_TYPE  => $Log::log_levels{'LOG_INFO'},
+  #      ACTION    => 'AUTH',
+  #      USER_NAME => $USER_NAME || '-',
+  #      MESSAGE   => "IP: $ip",
+  #      NAS_ID    => $attr->{NAS_ID}
+  #    }
+  #  );
+    $cmd = ": ";
   }
   elsif ( $STATUS eq 'ONLINE_DISABLE' ){
     $cmd = $conf{INTERNET_IPOE_STOP};

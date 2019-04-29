@@ -629,7 +629,7 @@ sub check_lines{
       }
 
       if ( (defined( $Billing->{PAYMENT_TYPE} ) && $Billing->{PAYMENT_TYPE} == 0)
-        && ($deposit + $credit <= $Billing->{SUM} + $online->{credit_tresshold})
+        && ($deposit + $credit < $Billing->{SUM} + $online->{credit_tresshold})
         || $Billing->{HANGUP} )
       {
         #Neg deposit filter
