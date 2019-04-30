@@ -364,7 +364,7 @@ sub auth {
     }
 
     #Check deposit
-    if ($self->{DEPOSIT} <= 0) {
+    if ($self->{DEPOSIT} < 0) {
       return $self->neg_deposit_filter_former($RAD, $NAS, $self->{NEG_DEPOSIT_FILTER_ID},
         {
           RAD_PAIRS   => $RAD_PAIRS,
