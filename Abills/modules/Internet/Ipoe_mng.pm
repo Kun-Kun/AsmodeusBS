@@ -483,26 +483,25 @@ sub internet_ipoe_change_status{
 
   #Enable IPN Session
   if ( $STATUS eq 'ONLINE_ENABLE'){
-  #  $cmd = $conf{INTERNET_IPOE_START};
-  #  $html->message( 'info', $lang{INFO}, "$lang{ENABLE} IP: $ip" ) if (!$attr->{QUICK});
-  #  $Sessions->online_update(
-  #    {
-  #      USER_NAME       => $USER_NAME,
-  #      ACCT_SESSION_ID => $ACCT_SESSION_ID,
-  #      STATUS          => 10
-  #    }
-  #  );
+    $cmd = $conf{INTERNET_IPOE_START};
+    $html->message( 'info', $lang{INFO}, "$lang{ENABLE} IP: $ip" ) if (!$attr->{QUICK});
+    $Sessions->online_update(
+      {
+        USER_NAME       => $USER_NAME,
+        ACCT_SESSION_ID => $ACCT_SESSION_ID,
+        STATUS          => 10
+      }
+    );
 
-  #  $Log->log_add(
-  #    {
-  #      LOG_TYPE  => $Log::log_levels{'LOG_INFO'},
-  #      ACTION    => 'AUTH',
-  #      USER_NAME => $USER_NAME || '-',
-  #      MESSAGE   => "IP: $ip",
-  #      NAS_ID    => $attr->{NAS_ID}
-  #    }
-  #  );
-    $cmd = ": ";
+    $Log->log_add(
+      {
+        LOG_TYPE  => $Log::log_levels{'LOG_INFO'},
+        ACTION    => 'AUTH',
+        USER_NAME => $USER_NAME || '-',
+        MESSAGE   => "IP: $ip",
+        NAS_ID    => $attr->{NAS_ID}
+      }
+    );
   }
   elsif ( $STATUS eq 'ONLINE_DISABLE' ){
     $cmd = $conf{INTERNET_IPOE_STOP};
