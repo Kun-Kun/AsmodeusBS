@@ -747,7 +747,7 @@ sub internet_payments_maked {
       $abon_fees = ($Internet->{MONTH_ABON} / 30) + $Internet->{DAY_ABON};
     }
 
-    if ($Internet->{STATUS} > 3 && $deposit > $abon_fees) {
+    if ($Internet->{STATUS} > 3 && $deposit >= $abon_fees) {
       $Internet->change(
         {
           UID    => $user->{UID},
