@@ -47,13 +47,13 @@ if ( !$argv->{NAS_IDS} ) {
 }
 
 # FIXME: delete when Internet::Sessions will work
-$argv->{USE_DV} = 1 || (!in_array('Internet', \@MODULES));
-if ( $argv->{USE_DV} ) {
-  $Dv_Sessions = Dv_Sessions->new($db, $Admin, \%conf);
-}
-else {
+#$argv->{USE_DV} = 1 || (!in_array('Internet', \@MODULES));
+#if ( $argv->{USE_DV} ) {
+#  $Dv_Sessions = Dv_Sessions->new($db, $Admin, \%conf);
+#}
+#else {
   $Internet_Sessions = Internet::Sessions->new($db, $Admin, \%conf);
-}
+#}
 
 mikrotik_check_clients();
 
@@ -126,26 +126,26 @@ sub get_online_list {
   
   my $online_list = [];
   
-  if ( $argv->{USE_DV} ) {
-    $online_list = $Dv_Sessions->online({
-      NAS_ID    => $nas_id,
-      LOGIN     => '_SHOW',
-      CID       => '_SHOW',
-      CLIENT_IP => '_SHOW',
-      TP_ID     => '_SHOW',
-      PAGE_ROWS => 100000,
-      COLS_NAME => 1,
-    });
-    
-    if ( $Dv_Sessions->{errno} ) {
-      print "  Can't get online sessions : " . ($Dv_Sessions->{errstr} || 'Unknown error') . "\n";
-      return 0;
-    }
-    elsif ( !$Dv_Sessions->{TOTAL} && $debug ) {
-      print "  No online sessions for NAS_ID $nas_id \n";
-    }
-  }
-  else {
+#  if ( $argv->{USE_DV} ) {
+#    $online_list = $Dv_Sessions->online({
+#      NAS_ID    => $nas_id,
+#      LOGIN     => '_SHOW',
+#      CID       => '_SHOW',
+#      CLIENT_IP => '_SHOW',
+#      TP_ID     => '_SHOW',
+#      PAGE_ROWS => 100000,
+#      COLS_NAME => 1,
+#    });
+#    
+#    if ( $Dv_Sessions->{errno} ) {
+#      print "  Can't get online sessions : " . ($Dv_Sessions->{errstr} || 'Unknown error') . "\n";
+#      return 0;
+#    }
+#    elsif ( !$Dv_Sessions->{TOTAL} && $debug ) {
+#      print "  No online sessions for NAS_ID $nas_id \n";
+#    }
+#  }
+#  else {
     $online_list = $Internet_Sessions->online({
       NAS_ID    => $nas_id,
       LOGIN     => '_SHOW',
@@ -163,7 +163,7 @@ sub get_online_list {
     elsif ( !$Internet_Sessions->{TOTAL} && $debug ) {
       print "  No online sessions for NAS_ID $nas_id \n";
     }
-  }
+#  }
   
   return $online_list || [];
 }
@@ -177,14 +177,15 @@ sub get_address_list_hash {
   my Abills::Nas::Mikrotik $mt = shift;
   
   # Get list
-  my $address_list = $mt->firewall_address_list_list({ LIST => '~CLIENTS_' });
+  my $address_list = $mt->firewall_address_list_list({ LIST => '~CLIENTS_ALLOW' });
   if ( my $error = $mt->get_error ) {
     print "Error. Can't get Firewall > Address-list : $error \n";
     return 0;
   }
-  
+#  my $address_set = uniq( $address_list);  
   # Return
-  return $address_list;
+#  return $address_set;
+ return $address_list;
 }
 
 #**********************************************************
@@ -241,4 +242,12 @@ sub mikrotik_init_and_check_access {
   return $mt;
 }
 
-1;
+#**********************************************************
+=head2 uniq($list)
+=cut
+#**********************************************************
+
+sub uniq {
+  my %seen;
+  return grep { !$seen{$_}++ } @_;
+}
